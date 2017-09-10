@@ -15,7 +15,7 @@ const gulp = require('gulp'),
   replace = require('gulp-replace'),
   sass = require('gulp-sass'),
   sourcemaps = require('gulp-sourcemaps'),
-  svgSprites = require('gulp-svg-sprites'),
+  svgSprite = require('gulp-svg-sprite'),
   svgMin = require('gulp-svgmin'),
   ttf2woff = require('gulp-ttf2woff'),
   uglify = require('gulp-uglify'),
@@ -120,15 +120,18 @@ function spriteCreate () {
             $('[style]').removeAttr('style');
             $('[style]').removeAttr('style');
         },
-        parserOptions: { xmlMode: false }
+        parserOptions: { xmlMode: true }
     }))
     .pipe(replace('&gt;', '>'))
-    .pipe(svgSprites({
-        mode: "symbols",
-        preview: false
-    }))
-    .pipe(rename({
-        basename: 'sprite'
+    .pipe(svgSprite({
+      mode: {
+        symbol: {
+          sprite: "../sprite.svg",
+          example: {
+            dest: '../tmp/spriteSvgDemo.html' // демо html
+          }
+        }
+      }
     }))
     .pipe(notify('Sprite created successfully'))
     .pipe(plumber.stop())

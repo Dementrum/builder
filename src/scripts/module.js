@@ -1,5 +1,5 @@
 let slider = function(){
-  alert('module!');
+  console.log('module!');
 };
 
 console.log('in module');
